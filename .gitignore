@@ -1,5 +1,6 @@
 /SP.Core/.vs
-
+/SP.Core/SP.Core/obj/Debug
+/SP.Core/SP.Core/bin/Debug
 /SP.Core/SP.Infrastructure/bin/Debug
 /SP.Core/SP.Infrastructure/obj/Debug
 /SP.Core/SP.Models/bin/Debug
