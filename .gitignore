@@ -1,52 +1,14 @@
-# Prerequisites
-*.d
+/SP.Core/.vs
 
-# Object files
-*.o
-*.ko
-*.obj
-*.elf
-
-# Linker output
-*.ilk
-*.map
-*.exp
-
-# Precompiled Headers
-*.gch
-*.pch
-
-# Libraries
-*.lib
-*.a
-*.la
-*.lo
-
-# Shared objects (inc. Windows DLLs)
-*.dll
-*.so
-*.so.*
-*.dylib
-
-# Executables
-*.exe
-*.out
-*.app
-*.i*86
-*.x86_64
-*.hex
-
-# Debug files
-*.dSYM/
-*.su
-*.idb
-*.pdb
-
-# Kernel Module Compile Results
-*.mod*
-*.cmd
-.tmp_versions/
-modules.order
-Module.symvers
-Mkfile.old
-dkms.conf
+/SP.Core/SP.Infrastructure/bin/Debug
+/SP.Core/SP.Infrastructure/obj/Debug
+/SP.Core/SP.Models/bin/Debug
+/SP.Core/SP.Models/obj/Debug
+/SP.Core/SP.Repository/bin/Debug
+/SP.Core/SP.Repository/obj/Debug
+/SP.Core/Sp.Service/bin/Debug
+/SP.Core/Sp.Service/obj/Debug
+/SP.Core/Sp.UnitTest/bin/Debug
+/SP.Core/Sp.UnitTest/obj/Debug
+/SP_Web/node_modules
+/SP_Web/sp/node_modules
