@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using Sp.Service.Dtos;
 using SP.Models;
 using SP.Repository;
@@ -33,15 +34,27 @@ namespace Sp.Service
             }
         }
 
-        public ResponseDto SignUp()
+        public ResponseDto SignUp(string userName, string passWord, string nickName)
         {
-          var user=  userRepository.Insert(new SP.Models.AppUser { UserName = "夜莫白", PassWord = "123", RegisterTime = DateTime.Now });
+            var user=  userRepository.Insert(new SP.Models.AppUser { UserName = userName, PassWord = passWord, RegisterTime = DateTime.Now });
             return new ResponseDto { Data = user };
         }
 
         public ResponseDto UpdateUser()
         {
             throw new NotImplementedException();
+        }
+        public async Task<ResponseDto> IsExistAsync(string userName)
+        {
+            var result = await userRepository.GetAsync(x => x.UserName == userName);
+            if (result != null)
+            {
+                return ResponseDto.Fail("用户名重复,请更换用户名");
+            }
+            else
+            {
+                return ResponseDto.Success(null);
+            }           
         }
     }
 }

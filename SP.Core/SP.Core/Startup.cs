@@ -49,8 +49,13 @@ namespace SP.Core
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseCors(builder =>
+            {
+                builder.WithOrigins("http://localhost:8080")
+               .AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
+            });
             app.UseMvc();
+           
             app.UseIdentityServer();
         }
     }
