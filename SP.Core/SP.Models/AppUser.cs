@@ -15,5 +15,6 @@ namespace SP.Models
         public string NickName { get; set; }
         [Column("register_time")]
         public DateTime RegisterTime { get; set; }
+        public string Avatar { get; set; }
     }
 }

@@ -13,6 +13,7 @@ namespace SP.Infrastructure
            
         }
         public DbSet<AppUser> AppUser { get; set; }
+        public DbSet<UserRole> UserRole { get; set; }
        
     }
 }

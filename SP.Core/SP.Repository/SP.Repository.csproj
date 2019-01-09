@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Dapper" Version="1.50.5" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\SP.Infrastructure\SP.Infrastructure.csproj" />
     <ProjectReference Include="..\SP.Models\SP.Models.csproj" />
   </ItemGroup>

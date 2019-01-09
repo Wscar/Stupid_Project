@@ -2,10 +2,16 @@
      <el-container>
          <el-header>
            <div class="header-left"></div>
-           <div class="header-right" v-if="isSignIn">
-            <ul>
+           <div class="header-right" >
+            <ul v-if="isSignIn!=true">
             <li><router-link :to="{name:'SignIn'}">登陆</router-link></li>
             <li><router-link :to="{name:'SignUp'}">注册</router-link></li>
+            </ul>
+            <ul v-if="isSignIn">
+            <li><router-link :to="{name:'SignIn'}">首页</router-link></li>
+            <li><router-link :to="{name:'SignUp'}">{{this.$store.state.user.nickName}}</router-link></li>
+            <li><router-link :to="{name:'SignIn'}">设置</router-link></li>
+            <li><router-link :to="{name:'SignIn'}">退出</router-link></li>
             </ul>
            </div>
          </el-header>
