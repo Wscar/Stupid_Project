@@ -9,8 +9,8 @@
 /SP.Core/SP.Repository/obj/Debug
 /SP.Core/Sp.Service/bin/Debug
 /SP.Core/Sp.Service/obj/Debug
-/SP.Core/Sp.UnitTest/bin/Debug
-/SP.Core/Sp.UnitTest/obj/Debug
+/SP.Core/UnitTest/bin/Debug
+/SP.Core/UnitTest/obj/Debug
 /SP.Core/Sp.Authentication/obj/Debug
 /SP.Core/Sp.Authentication/bin/Debug
 /SP_Web/node_modules
