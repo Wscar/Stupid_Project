@@ -33,17 +33,20 @@ export default {
     },methods:{
         go(){
             this.$router.push({name:"SignUp"})
-        }, signin(){
-        //   var signInResult=  await this.$SignInManager.SignIn(this.user);
-        //   if(signInResult==true){
-        //     this.$router.push({name:"Home"})
-             this.$signInManager.SignInTest();
-            console.log(this.$store.state.token.refresh);
-          }
+        }, async signin(){
+           
+           
+          var signInResult=  await this.$signInManager.SignIn(this.user);
+          if(signInResult==true){
+            this.$router.push({name:"Home"});
+            //  this.$signInManager.SignInTest();
+            // console.log(this.$store.state.token.refresh);
+        }
 
             
         
     }
+}
 }
 </script>
 <style>

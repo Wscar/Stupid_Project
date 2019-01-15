@@ -43,7 +43,11 @@ namespace SP.Core.Controllers
         {
             var imageBytes= await this.imageService.DownLoadImageAsync(fileName);
             var index = fileName.LastIndexOf(".");
-            var fileType = fileName.Substring(index+1);
+            string fileType = "jpg";
+            if (index != -1)
+            {
+                fileType = fileName.Substring(index + 1);
+            }     
             return new FileContentResult(imageBytes, "image/" + fileType);
         }
         

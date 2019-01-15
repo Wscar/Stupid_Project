@@ -12,11 +12,8 @@ namespace Sp.Authentication
         public static IEnumerable<ApiResource> GetApiResource()
         {
             return new List<ApiResource>
-            {
-              
-
-                new ApiResource("sp_api","sp_api service"),
-                
+            {             
+                new ApiResource("sp_api","sp_api service"),              
                 //并且要把contactapi加入到apiResource,并加入到 client的allowedScopes中 
                // new ApiResource("contact_api","contact_api service")
             };
@@ -43,7 +40,7 @@ namespace Sp.Authentication
                      RefreshTokenUsage=TokenUsage.ReUse,
                      AlwaysIncludeUserClaimsInIdToken = true,
                      AllowOfflineAccess = true,
-                     AccessTokenLifetime=(int)TimeSpan.FromMinutes(1).TotalSeconds,
+                     AccessTokenLifetime=(int)TimeSpan.FromHours(24).TotalSeconds,
                     AllowedScopes=new List<string>
                     {
                        "sp_api",

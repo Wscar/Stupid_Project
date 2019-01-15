@@ -30,6 +30,10 @@ namespace UnitTest
             services.AddScoped<IBaseRepository<AppUser>, AppUserRepository>();
             services.AddScoped<IImageRepository, UserAvatarRepository>();
             services.AddScoped<IBaseRepository<UserRole>, RoleRepository>();
+            services.AddScoped<IBaseRepository<SpArea>, AreaRespository>();
+            services.AddScoped<IBaseRepository<Forum>, ForumRepository>();
+            services.AddScoped<IForumService, ForumService>();
+            services.AddScoped<IAreaService, AreaService>();
             serviceProvider = services.BuildServiceProvider();
         }
     }

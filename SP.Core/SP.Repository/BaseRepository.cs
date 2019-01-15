@@ -80,6 +80,19 @@ namespace SP.Repository
             });
         }
 
+        public List<TEntity> GetPage<TKey>(Expression<Func<TEntity, bool>> experssionCondition, int pageIndex = 1, int pageSize = 20, Expression<Func<TEntity, TKey>> orderBy = null)
+        {
+            return  dbcontext.Set<TEntity>().Where(experssionCondition).Skip(pageSize * (pageIndex - 1)).Take(pageSize).OrderByDescending(orderBy).ToList();
+        }
+
+        public Task<List<TEntity>> GetPageAsync<TKey>(Expression<Func<TEntity, bool>> experssionCondition, int pageIndex = 1, int pageSize = 20, Expression<Func<TEntity, TKey>> orderBy = null)
+        {
+            return Task.Run(() =>
+            {
+               return  dbcontext.Set<TEntity>().Where(experssionCondition).Skip(pageSize * (pageIndex - 1)).Take(pageSize).OrderByDescending(orderBy).ToList();
+            });
+        }
+
         public TEntity Insert(TEntity entity)
         {
            var result= dbcontext.Set<TEntity>().Add(entity);

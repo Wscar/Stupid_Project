@@ -33,8 +33,8 @@ namespace SP.Core.Controllers
             var result = userService.SignIn(userName,password);
             return Ok(result);
          }
-         
-         [Route("{id}")]
+        [Authorize(Policy = "admin")]
+        [Route("{id}")]
          [HttpDelete]
          public IActionResult DeleteUser(int id)
         {

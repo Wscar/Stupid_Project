@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using IdentityServer4.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -31,10 +32,20 @@ namespace Sp.Authentication
                .AddInMemoryClients(IdentityServerConfig.GetClients())
                .AddInMemoryIdentityResources(IdentityServerConfig.GetIdentityResources())
                .AddResourceOwnerValidator<ResourceOwnerPasswordValidator>()
-               .AddProfileService<ProfileService>();
+               .AddProfileService<ProfileService>()
+
+                .AddCorsPolicyService<CorsPolicyService>();
+               
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddAuthentication()
-                .AddIdentityServerAuthentication("barer");
+                .AddIdentityServerAuthentication("barer", options =>
+                {
+                    options.ApiSecret = "yemobai";
+                    options.RequireHttpsMetadata = false;
+
+
+                })
+                ;
 
             services.AddHttpClient();
             services.AddScoped<IAccountService, AccountService>();
@@ -52,6 +63,11 @@ namespace Sp.Authentication
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            app.UseCors(buider =>
+            {
+                buider.WithOrigins("http://localhost:8080")
+                .AllowAnyHeader();
+            });
             app.UseIdentityServer();
            // app.UseHttpsRedirection();
             app.UseMvc();

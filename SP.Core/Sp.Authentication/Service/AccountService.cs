@@ -51,6 +51,7 @@ namespace Sp.Authentication.Service
             dto.Roles.ForEach(x => { claims.Add(new Claim(JwtClaimTypes.Role, x)); });
             claims.Add(new Claim("nickName", dto.NickName));
             claims.Add(new Claim("avatar", dto.Avatar));
+            claims.Add(new Claim("userName", dto.UserName));
             return claims.ToArray();
         }
     }

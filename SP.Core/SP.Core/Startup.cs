@@ -56,7 +56,7 @@ namespace SP.Core
                     options.RequireHttpsMetadata = false;
                     options.Audience = "sp_api";
                     options.Authority = "http://localhost:5001";
-                    options.SaveToken = true;
+                    options.SaveToken = true;                  
                     
                 })          
                 ;
@@ -76,8 +76,13 @@ namespace SP.Core
             services.AddScoped<IBaseRepository<AppUser>, AppUserRepository>();
             services.AddScoped<IBaseRepository<UserRole>, RoleRepository>();
             services.AddScoped<IImageRepository, UserAvatarRepository>();
+            services.AddScoped<IBaseRepository<SpArea>, AreaRespository>();
+            services.AddScoped<IBaseRepository<Forum>, ForumRepository>();
+            services.AddScoped<IForumService, ForumService>();
+            services.AddScoped<IAreaService, AreaService>();
+            services.AddScoped<IBaseRepository<Post>, PostRepository>();
+            services.AddScoped<IPostService, PostService>();
         }
-
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {

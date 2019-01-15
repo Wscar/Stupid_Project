@@ -9,7 +9,7 @@ import 'element-ui/lib/theme-chalk/index.css';
 Vue.config.productionTip = false
 //导入Js
 import signInManager from './utils/signInManager.js';
-import userManager from  './utils/signInManager.js';
+import userManager from  './utils/userManager.js';
 import store from './store/index.js';
 //导入组建
 import Home from './components/home.vue';
@@ -24,7 +24,7 @@ Vue.component('signin',SignIn);
 Vue.use(VueRouter);
 Vue.use(ElementUI);
 Vue.prototype.$signInManager=signInManager;
-Vue.prototype.$userManager=userManager;                         
+Vue.prototype.$userManager=userManager;                        
 //创建路由对象
 const router=new VueRouter(
   {

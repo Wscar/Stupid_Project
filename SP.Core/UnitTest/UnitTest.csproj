@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SP.Core\SP.Core.csproj" />
     <ProjectReference Include="..\SP.Infrastructure\SP.Infrastructure.csproj" />
     <ProjectReference Include="..\SP.Models\SP.Models.csproj" />
     <ProjectReference Include="..\SP.Repository\SP.Repository.csproj" />

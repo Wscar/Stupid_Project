@@ -59,7 +59,12 @@ namespace SP.Repository
         /// <param name="experssionCondition">where条件</param>
         /// <returns>收影响的行数</returns>
         Task<int> DeleteAsync(T entity);
+        Task<List<T>> GetPageAsync<TKey>(Expression<Func<T, bool>> experssionCondition, int pageIndex = 1, int pageSize = 20, Expression<Func<T, TKey>> orderBy=null);
+
         #endregion
+
+
+
         #region 同步方法
         /// <summary>
         /// 通过主键来获取实体对象
@@ -116,6 +121,7 @@ namespace SP.Repository
         /// <param name="experssionCondition">where条件</param>
         /// <returns>收影响的行数</returns>
         int Delete(T entity);
+        List<T> GetPage<TKey>(Expression<Func<T, bool>> experssionCondition, int pageIndex = 1, int pageSize = 20, Expression<Func<T, TKey>> orderBy = null);
         #endregion
     }
 }

@@ -10,6 +10,7 @@ namespace Sp.Authentication
         public  int Id { get; set; }
         public  string NickName { get; set; }
         public  string Avatar { get; set; }
+        public string UserName { get; set; }
         public  List<string > Roles { get; set; }
      }
 }

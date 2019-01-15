@@ -33,7 +33,7 @@ namespace Sp.Service
             var role = this.roleReository.GetList(x => x.UserId == user.Id);
             if (user != null)
             {
-                var userDto = new UserDto { Id = user.Id, NickName = user.NickName, Avatar = user.Avatar };
+                var userDto = new UserDto { Id = user.Id, NickName = user.NickName, Avatar = user.Avatar,UserName=user.UserName };
                 role.ToList().ForEach(x => userDto.Roles.Add(x.Type));
                 return ResponseDto.Success(userDto);             
             }
