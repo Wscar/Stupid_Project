@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace SP.Models
@@ -9,9 +11,10 @@ namespace SP.Models
     /// 帖子表
     /// </summary>
    public  class Post
-    {  
+    {
+        [Key]
         /// <summary>
-        /// 主题id
+        /// id
         /// </summary>
         public  int  Id { get; set; }
 
@@ -20,12 +23,13 @@ namespace SP.Models
         /// </summary>
         public int  ForumId { get; set; }
 
-
+        [Column("create_userId")]
         /// <summary>
         /// 创建用户id
         /// </summary>
         public int CreateUserId { get; set; }
 
+        [Column("create_time")]
         /// <summary>
         /// 创建时间
         /// </summary>
@@ -45,9 +49,23 @@ namespace SP.Models
         /// </summary>
         public string Context { get; set; }
 
+        [Column("update_time")]
         /// <summary>
         /// 修改时间
         /// </summary>
-        public DateTime UpdateTime { get; set; }
+        public DateTime? UpdateTime { get; set; }
+
+
+        /// <summary>
+        ///  最后回复的用户id
+        /// </summary>
+        [Column("end_reply_user_id")]     
+        public int? EndReplyUserId { get; set; }
+
+          /// <summary>
+          /// 最后回复时间
+          /// </summary>
+         [Column("end_reply_time")]
+         public DateTime? EndReplyTime { get; set; }
     }
 }

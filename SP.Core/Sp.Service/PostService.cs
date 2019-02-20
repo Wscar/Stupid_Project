@@ -14,7 +14,6 @@ namespace Sp.Service
         {
             baseRepository = _baseRepository;
         }
-
         public ResponseDto CreatePost(PostDto dto)
         {
             var newPost = new Post
@@ -32,7 +31,7 @@ namespace Sp.Service
             }
             else
             {
-                return ResponseDto.Success("创建失败");
+                return ResponseDto.Fail("创建失败");
             }
         }
 
@@ -44,7 +43,7 @@ namespace Sp.Service
                 CreateTime = DateTime.Now,
                 ForumId = dto.ForumId,
                 Subject = dto.Subject,
-                Context = dto.Context
+                Context = dto.Context      
             };
             var post = await baseRepository.InsertAsync(newPost);
             if (post != null)
@@ -53,7 +52,7 @@ namespace Sp.Service
             }
             else
             {
-                return ResponseDto.Success("创建失败");
+                return ResponseDto.Fail("创建失败");
             }
         }
 

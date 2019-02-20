@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SqlStatements >
+  <SqlStatement name="updateFormName">
+    UPDATE sp.forum AS a
+    SET a.`name` = @name
+    WHERE
+    a.id = @id
+  </SqlStatement>
+  <SqlStatement name="getAreaAndForums">
+    SELECT
+      a.id areaID,
+      a.NAME areaName,
+      b.id  forumId,
+      b.NAME forumName,
+      b.areaId fourmAreaId
+      FROM
+      area AS a
+    LEFT JOIN forum AS b ON a.id = b.areaid
+  </SqlStatement>
+</SqlStatements >

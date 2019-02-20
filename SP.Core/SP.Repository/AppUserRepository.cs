@@ -8,7 +8,7 @@ namespace SP.Repository
     public  class AppUserRepository:BaseRepository<AppUser>
     {
        
-        public AppUserRepository(SPDbcontext _dbcontext):base(_dbcontext)
+        public AppUserRepository(SPDbcontext _dbcontext, SqlMap sqlMap) :base(_dbcontext ,sqlMap)
         {        
         }
     }

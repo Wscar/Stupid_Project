@@ -7,7 +7,7 @@ namespace SP.Repository
 {
    public class ForumRepository:BaseRepository<Forum>
     {
-        public ForumRepository(SPDbcontext dbcontext) : base(dbcontext)
+        public ForumRepository(SPDbcontext dbcontext, SqlMap sqlMap) : base(dbcontext,sqlMap)
         {
 
         }

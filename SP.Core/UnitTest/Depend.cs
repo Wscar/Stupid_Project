@@ -17,6 +17,7 @@ namespace UnitTest
         }
         public IServiceCollection services;
         public ServiceProvider serviceProvider;
+        private string sqlConnStr = "server=localhost;uid=root;pwd=wqawd520;database=sp;Charset=utf8;port=3306";
         private void AddDepend()
         {
             services = new ServiceCollection();
@@ -24,7 +25,7 @@ namespace UnitTest
             {
                 return new SpMongoDbContext("mongodb://localhost:27017","sp");
             });
-            services.AddDbContext<SPDbcontext>(options => options.UseMySql("server=localhost;uid=root;pwd=wqawd520;database=sp;Charset=utf8;port=3306"));
+            services.AddDbContext<SPDbcontext>(options => options.UseMySql(sqlConnStr));
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IImageService, ImagerService>();
             services.AddScoped<IBaseRepository<AppUser>, AppUserRepository>();
@@ -34,6 +35,10 @@ namespace UnitTest
             services.AddScoped<IBaseRepository<Forum>, ForumRepository>();
             services.AddScoped<IForumService, ForumService>();
             services.AddScoped<IAreaService, AreaService>();
+            services.AddScoped<IBaseRepository<Post>, PostRepository>();
+            services.AddScoped<IPostService, PostService>();
+            services.AddScoped<IHomePageService, HomePageService>();
+            services.AddSingleton<SqlMap>(x => { return new SqlMap(sqlConnStr); });
             serviceProvider = services.BuildServiceProvider();
         }
     }

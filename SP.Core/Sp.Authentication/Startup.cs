@@ -38,7 +38,7 @@ namespace Sp.Authentication
                
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddAuthentication()
-                .AddIdentityServerAuthentication("barer", options =>
+                .AddIdentityServerAuthentication("bearer", options =>
                 {
                     options.ApiSecret = "yemobai";
                     options.RequireHttpsMetadata = false;

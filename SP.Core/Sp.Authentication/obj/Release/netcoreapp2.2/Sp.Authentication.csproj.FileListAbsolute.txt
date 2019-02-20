@@ -1,0 +1,14 @@
+F:\MyProject\Stupid_Project\SP.Core\Sp.Authentication\bin\Release\netcoreapp2.2\Sp.Authentication.deps.json
+F:\MyProject\Stupid_Project\SP.Core\Sp.Authentication\bin\Release\netcoreapp2.2\Sp.Authentication.runtimeconfig.json
+F:\MyProject\Stupid_Project\SP.Core\Sp.Authentication\bin\Release\netcoreapp2.2\Sp.Authentication.runtimeconfig.dev.json
+F:\MyProject\Stupid_Project\SP.Core\Sp.Authentication\bin\Release\netcoreapp2.2\Sp.Authentication.dll
+F:\MyProject\Stupid_Project\SP.Core\Sp.Authentication\bin\Release\netcoreapp2.2\Sp.Authentication.pdb
+F:\MyProject\Stupid_Project\SP.Core\Sp.Authentication\obj\Release\netcoreapp2.2\Sp.Authentication.csprojAssemblyReference.cache
+F:\MyProject\Stupid_Project\SP.Core\Sp.Authentication\obj\Release\netcoreapp2.2\Sp.Authentication.csproj.CoreCompileInputs.cache
+F:\MyProject\Stupid_Project\SP.Core\Sp.Authentication\obj\Release\netcoreapp2.2\Sp.Authentication.RazorAssemblyInfo.cache
+F:\MyProject\Stupid_Project\SP.Core\Sp.Authentication\obj\Release\netcoreapp2.2\Sp.Authentication.RazorAssemblyInfo.cs
+F:\MyProject\Stupid_Project\SP.Core\Sp.Authentication\obj\Release\netcoreapp2.2\Sp.Authentication.AssemblyInfoInputs.cache
+F:\MyProject\Stupid_Project\SP.Core\Sp.Authentication\obj\Release\netcoreapp2.2\Sp.Authentication.AssemblyInfo.cs
+F:\MyProject\Stupid_Project\SP.Core\Sp.Authentication\obj\Release\netcoreapp2.2\Sp.Authentication.RazorTargetAssemblyInfo.cache
+F:\MyProject\Stupid_Project\SP.Core\Sp.Authentication\obj\Release\netcoreapp2.2\Sp.Authentication.dll
+F:\MyProject\Stupid_Project\SP.Core\Sp.Authentication\obj\Release\netcoreapp2.2\Sp.Authentication.pdb

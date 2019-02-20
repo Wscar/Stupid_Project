@@ -3,9 +3,14 @@ import vuex from 'vuex';
 Vue.use(vuex);
 export default new vuex.Store({
     state:{
-        token:{access_token:"",refresh:"",expires_in:"",}, 
+        token:{access_token:'',refresh:"",expires_in:"",}, 
         user:{userName:"",id:"",nickName:"",avatar:"",role:"",},
-        isSignOut:true      
+        isSignOut:true ,
+        isSignIn:false ,
+        areas:[],
+        area:{id:null,name:""},
+        forums:null,
+        forum:{id:null,name:"",userId:null,areaId:""}    
     },mutations:{
         CommitToken(state,token){
             state.token.access_token=token.access_token;
@@ -25,6 +30,13 @@ export default new vuex.Store({
             state.user.role=null;
         },CommitIsSignOutValue(state,isSignOut){
             state.isSignOut=isSignOut;
+        },CommitIsSignInValue(state,isSignIn){
+            state.isSignIn=isSignIn;
+        },CommitAreas(state,areas){
+                  state.areas=[];
+                  areas.forEach(item=>{
+                   state.areas.push({id:item.id,name:item.name,forums:item.forumVMs});
+                  });
         }
     }
 })

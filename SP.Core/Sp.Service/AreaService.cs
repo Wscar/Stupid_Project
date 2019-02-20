@@ -121,7 +121,7 @@ namespace Sp.Service
             }
             else
             {
-                return ResponseDto.Fail("没有获取到全部的帖子");
+                return ResponseDto.Fail("没有获取到全部的区域");
             }
         }
 

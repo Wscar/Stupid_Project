@@ -28,8 +28,9 @@ namespace SP.Core.Controllers
          }
         [Route("signin")]
         [HttpPost]
-         public IActionResult SignIn([FromForm]string userName,[FromForm]string password)
-         {
+       
+         public IActionResult SignIn([FromForm] string userName, [FromForm]string password)
+         {  
             var result = userService.SignIn(userName,password);
             return Ok(result);
          }

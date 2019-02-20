@@ -1,38 +1,59 @@
 <template>
-   <div class="main_head">
-    
-           <div class="main_header_left"></div>
-           <div class="main_header_right">
-            <ul>
-            <li>登陆</li>
-            <li>注册</li>
+           <div>
+           <div class="header-left"></div>
+           <div class="header-right" >
+            <ul v-if="isSignIn!=true">
+            <li><router-link :to="{name:'SignIn'}">登陆</router-link></li>
+            <li><router-link :to="{name:'SignUp'}">注册</router-link></li>
             </ul>
-           </div>              
-   </div>
+            <ul v-if="isSignIn">
+            <li><router-link :to="{name:'Home'}">首页</router-link></li>
+            <li><router-link :to="{name:''}">{{this.$store.state.user.nickName}}</router-link></li>
+            <li><router-link :to="{name:''}">设置</router-link></li>
+            <li ><a href="" @click="SignOut">退出</a></li>
+            </ul>
+           </div>
+          </div>
         
 </template>
 <script>
 export default {
-    
+    data(){
+       return{isSignIn:this.$store.state.isSignIn}
+    }, created(){         
+    },methods:{
+        SignOut(){
+            this.$signInManager.SignOut(this.$store.state.user.username);
+            this.isSignIn=false;
+            this.isSignOut=true;                  
+        }
+    },mounted(){
+            
+            if(this.$store.state.isSignIn){
+              this.isShow=true;
+            }
+    }
 }
 </script>
-
 <style>
-.main_head{
-   width: 100%;
-   height: 60px;
-      background-color: #e2e2e2;
+.header-left{
+    width: 70%;
+    float: left;
+    height: 60px;
 }
-.main_header_left{
-   width: 70%;
-   height: 60px;
-   float: left;
+.header-right{
+     width: 30%;
+     float: left;
+     height: 60px;
 }
-.main_header_right{
-   float: left;
-   width: 30%;
-
-   
+.header-right li{
+    line-height: 60px;
+    float: left;
+    padding-right: 20px;
+}
+.header-right a{
+    text-decoration: none;
+     color: #757575;
 }
 </style>
 

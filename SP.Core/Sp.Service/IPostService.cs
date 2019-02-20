@@ -24,5 +24,6 @@ namespace Sp.Service
         Task<ResponseDto> UpdatePostAsync(PostDto dto);
         Task<ResponseDto> DeltePostAsync(int postId);
         Task<ResponseDto> CreatePostAsync(PostDto dto);
+
     }
 }

@@ -8,7 +8,7 @@ namespace SP.Repository
    public class AreaRespository:BaseRepository<SpArea>
     {
 
-        public  AreaRespository(SPDbcontext dbcontext) : base(dbcontext)
+        public  AreaRespository(SPDbcontext dbcontext,SqlMap map) : base(dbcontext,map)
         {
 
         }

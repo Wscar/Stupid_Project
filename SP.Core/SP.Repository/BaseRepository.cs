@@ -6,15 +6,18 @@ using System.Threading.Tasks;
 using SP.Infrastructure;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
-
+using Dapper;
+using MySql.Data.MySqlClient;
 namespace SP.Repository
 {
     public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class, new()
     {
         private readonly SPDbcontext dbcontext;
-        public BaseRepository(SPDbcontext _dbcontext)
+        public readonly SqlMap sqlMap;
+        public BaseRepository(SPDbcontext _dbcontext, SqlMap _sqlMap)
         {
             dbcontext = _dbcontext;
+            sqlMap = _sqlMap;
            
         }
         public int Delete(Expression<Func<TEntity, bool>> experssionCondition)
@@ -100,12 +103,20 @@ namespace SP.Repository
             return result.Entity;
         }
 
-        public Task<TEntity> InsertAsync(TEntity entity)
+        public async Task<TEntity> InsertAsync(TEntity entity)
         {
 
-          var result=  dbcontext.Set<TEntity>().AddAsync(entity).Result.Entity;
-            dbcontext.SaveChangesAsync();
-            return Task.FromResult<TEntity>(result);
+            var result = await dbcontext.Set<TEntity>().AddAsync(entity);
+            var affectedRowCount=  await dbcontext.SaveChangesAsync();
+            if (affectedRowCount >= 0)
+            {
+                return result.Entity;
+            }
+            else
+            {
+                return null;
+            }
+           
         }
 
         public int Update(Expression<Func<TEntity, bool>> expressionCondition)
@@ -120,15 +131,44 @@ namespace SP.Repository
           
         }
 
+        public int Update(string mapName, Dictionary<string, object> parmas)
+        {
+            using(MySqlConnection conn=new MySqlConnection(sqlMap.SqlConnStr))
+            {
+                var paramets = new DynamicParameters();
+                foreach(KeyValuePair<string,object> key in parmas)
+                {
+                    paramets.Add(key.Key, key.Value);
+                }
+                var result= conn.Execute(sqlMap.GetSqlStatment(mapName));
+                return result;
+            }
+        }
+
         public Task<int> UpdateAsync(Expression<Func<TEntity, bool>> expressionCondition)
         {
-            throw new NotImplementedException();
+            return null;
         }
 
         public Task<int> UpdateAsync(TEntity entity)
         {
             dbcontext.Set<TEntity>().AddAsync(entity);
            return  dbcontext.SaveChangesAsync();          
+        }
+
+        public  async Task<int> UpdateAsync(string mapName, Dictionary<string, object> parmas)
+        {
+            using (MySqlConnection conn = new MySqlConnection(sqlMap.SqlConnStr))
+            {
+                var paramets = new DynamicParameters();
+                foreach (KeyValuePair<string, object> key in parmas)
+                {
+                    paramets.Add(key.Key, key.Value);
+                }
+                var sql = sqlMap.GetSqlStatment(mapName);
+                var result = await conn.ExecuteAsync(sql,paramets);
+                return result;
+            }
         }
     }
 }

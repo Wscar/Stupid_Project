@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
@@ -11,7 +12,8 @@ namespace SP.Models
     /// </summary>
     [Table("Forum")]
     public  class Forum
-    {
+    {  
+        [Key]
         public int Id { get; set; }
         public string Name { get; set; }
         public int fouderid { get; set; }

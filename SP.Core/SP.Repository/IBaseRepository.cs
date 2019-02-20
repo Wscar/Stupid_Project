@@ -47,6 +47,8 @@ namespace SP.Repository
         /// <param name="expressionCondition">where条件</param>
         /// <returns>受影响的行数</returns>
         Task<int> UpdateAsync(T entity);
+
+        Task<int> UpdateAsync(string mapName, Dictionary<string, object> parmas);
         /// <summary>
         /// 删除一条数据
         /// </summary>
@@ -107,6 +109,8 @@ namespace SP.Repository
         /// <param name="expressionCondition">where条件</param>
         /// <returns>受影响的行数</returns>
         int Update(T entity);
+
+        int Update(string mapName, Dictionary<string, object> parmas);
 
         /// <summary>
         /// 删除一条数据

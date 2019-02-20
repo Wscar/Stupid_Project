@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
@@ -11,6 +12,7 @@ namespace SP.Models
     [Table("Area")]
     public class SpArea
     {
+        [Key]
         /// <summary>
         /// 区域Id
         /// </summary>

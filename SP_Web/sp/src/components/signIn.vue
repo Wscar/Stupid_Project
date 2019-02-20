@@ -26,8 +26,8 @@ export default {
     data(){
         return{
             user:{
-                username:"",
-                password:"",
+                username:"夜莫白",
+                password:"123",
             }
         }
     },methods:{
@@ -38,6 +38,7 @@ export default {
            
           var signInResult=  await this.$signInManager.SignIn(this.user);
           if(signInResult==true){
+              this.$store.commit("CommitIsSignInValue",signInResult);
             this.$router.push({name:"Home"});
             //  this.$signInManager.SignInTest();
             // console.log(this.$store.state.token.refresh);
@@ -54,6 +55,7 @@ export default {
      background-color: #e2e2e2;
      line-height: 60px;
      text-align: center;
+     margin-top: 10px;
  }
 
 </style>

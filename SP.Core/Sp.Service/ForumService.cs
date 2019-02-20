@@ -17,8 +17,8 @@ namespace Sp.Service
 
         public ResponseDto CreateForum(ForumDto dto)
         {
-            var newForum = new Forum { Name = dto.Name, fouderid = dto.UserId, CreateTime = DateTime.Now,AreaId=dto.AreaId };
-            var forum=  forumRepository.Insert(newForum);
+            var newForum = new Forum { Name = dto.Name, fouderid = dto.UserId, CreateTime = DateTime.Now, AreaId = dto.AreaId };
+            var forum = forumRepository.Insert(newForum);
             if (forum.Id > 0)
             {
                 return ResponseDto.Success(forum);
@@ -56,7 +56,7 @@ namespace Sp.Service
         public ResponseDto GetForumList(int areaId)
         {
 
-           var forums= this.forumRepository.GetList(x => x.AreaId == areaId);
+            var forums = this.forumRepository.GetList(x => x.AreaId == areaId);
             if (forums != null)
             {
                 return ResponseDto.Success(forums);
@@ -121,9 +121,26 @@ namespace Sp.Service
             throw new NotImplementedException();
         }
 
-        public Task<ResponseDto> UpdateForumNameAsync(ForumDto dto)
+        public async Task<ResponseDto> UpdateForumNameAsync(ForumDto dto)
         {
-            throw new NotImplementedException();
+
+            var paramets = new Dictionary<string, object>
+            {
+                { "@name", dto.Name },
+                { "@id", dto.Id }
+            };
+
+            var result = await this.forumRepository.UpdateAsync("updateFormName", paramets);
+            if (result > 0)
+            {
+                return ResponseDto.Success(null);
+            }
+            else
+            {
+                return ResponseDto.Fail("更新板块名称失败");
+            }
+
+
         }
     }
 }

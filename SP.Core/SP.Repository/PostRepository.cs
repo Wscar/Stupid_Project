@@ -7,7 +7,7 @@ namespace SP.Repository
 {
    public  class PostRepository:BaseRepository<Post>
     {
-        public PostRepository(SPDbcontext dbcontext) : base(dbcontext)
+        public PostRepository(SPDbcontext dbcontext, SqlMap sqlMap) : base(dbcontext,sqlMap)
         {
 
         }

@@ -1,21 +1,26 @@
 import apiConfig from "../config/apiConfig";
 import axios from 'axios';
 import store from "../store/index.js";
+import signInManager from './signInManager.js';
 export default {
      async  GetUserAvatarAsync(avatarName,token){
          var url=apiConfig[0]["imageApiUrl"]+"\\"+avatarName;
          var authKey="Bearer "+token;
          var  imageSrc=await axios.get(url,{responseType:"blob",headers:{"Authorization":authKey}})
          .then(function(response){
-            
+                
                 var blob=response.data;
                 var src=window.URL.createObjectURL(blob);
                 return src;
             
          }).catch(function(error){
-               console.log("获取用户头像出错"+error);
+               if(error.response.status=="401"){
+                   alert("登陆过期重新登陆");
+                   signInManager.SignOut(true);              
+               }else{
+                    console.log("获取用户头像出错"+error.response.data);
+               }
          });
-         console.log("GetUserAvatarAsync方法中imageSrc的值是"+imageSrc);
          return imageSrc;
      },
        ChangePassWord(){
@@ -23,7 +28,6 @@ export default {
      },
      async GetUserInfo(access_token){
         var authKey="Bearer "+access_token;
-        console.log("在GetUserInfo方法中access_token的值是"+access_token)
         var url=apiConfig[0]["userInfo"]
         var user=await axios.get(url,{headers:{"Authorization":authKey}})
           .then(function(response){

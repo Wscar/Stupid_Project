@@ -1,44 +1,15 @@
-<template>
-     <el-container>
-         <el-header>
-           <div class="header-left"></div>
-           <div class="header-right" >
-            <ul v-if="isSignIn!=true">
-            <li><router-link :to="{name:'SignIn'}">登陆</router-link></li>
-            <li><router-link :to="{name:'SignUp'}">注册</router-link></li>
-            </ul>
-            <ul v-if="isSignIn">
-            <li><router-link :to="{name:''}">首页</router-link></li>
-            <li><router-link :to="{name:''}">{{this.$store.state.user.nickName}}</router-link></li>
-            <li><router-link :to="{name:''}">设置</router-link></li>
-            <li ><a href="" @click="SignOut">退出</a></li>
-            </ul>
-           </div>
-         </el-header>
-         <el-main>
-             <div class="home-main">
+<template>       
               <div class="home-main-view">
-                  <router-view></router-view>
-              </div>
-              <div class="home-main-right">
-                  <div class="home-main-right-user" v-if="isSignIn">
-                     <ul>
-                         <li><div class="home-main-right-user-avatar">
-                              <img  align="left" :src='this.avatarSrc'>
-                              <span >{{this.$store.state.user.nickName}}</span>
-                             </div>
-                         </li>
-                         <li>收藏节点</li>
-                         <li>创作主体</li>
-                         <li>未读提醒</li>
-                     </ul>
+                 <div class="home-main-area">
+                    <span  :class="item.isSelect?'home-main-area-span-click':'home-main-area-span'" v-for="item in areas" :key="item.name" @click="selectAreaSpan(item)" >{{item.name}}</span>                    
+                 </div>
+                 <div class="home-main-forum">
+                    <sp-li :title="forums"></sp-li>
+                 </div>                 
+                  <div class="home-mian-post-list">                     
+                       <sp-post-list></sp-post-list>
                   </div>
-              </div>
-             </div>
-         </el-main>
-     </el-container>
-   
-   
+              </div>            
 </template>
 <script>
 export default {
@@ -46,105 +17,98 @@ export default {
         return{text:'1',
         isSignIn:false,
          avatarSrc:null,
-         isSignOut:true
+         isSignOut:true,
+         isAreaActive:false,
+            forums:[],
+            areas:[]
+           
         }
     },async mounted() {
             
-             if(this.isSignIn){
-            var accessToken=this.$store.state.token.access_token;
-            console.log("在Home.vue页面中accessToken的值是"+this.$store.state.token.access_token);
-            await this.$userManager.GetUserInfo(accessToken)
-            console.log("home.vue页面中mounted方法中avatar的值是"+this.$store.state.user.avatar)
-            this.avatarSrc=  await this.$userManager.GetUserAvatarAsync(this.$store.state.user.avatar,this.$store.state.token.access_token);       
-            console.log("home.vue页面中mounted方法中 this.avatarSrc的值是"+this.avatarSrc);
-        
-        
-        }                                           
-   },created(){
-       
-       if(this.$store.state.token.access_token!=""){
-          
-           this.isSignIn=true;
-       }else{
-           console.log("进入了home.vue的create方法里面的else语句");
-             this.$signInManager.CheckSignIn();
-              this.isSignIn=true;
-       }
-   },methods:{
-        SignOut(){
-            this.$signInManager.SignOut(this.$store.state.user.username);
-            this.$store.commit("RemoveUser");
-            this.isSignIn=false;
-            this.isSignOut=true;
-            this.$store.commit("CommitIsSignOutValue",this.isSignOut);
+            var result=  await  this.$postManager.GetHomeAreasAsync();          
+            if(result.status==0){
+               result.data.forEach(item=>{
+                 this.areas.push({name:item.name,id:item.id,isSelect:false,forums:item.forumVMs})               
+               }); 
+              this.$store.commit("CommitAreas",result.data);         
+                this.areas[0].forums.forEach(item=>{
+                   this.forums.push({id:item.id,name:item.name,areaId:item.areaId});
+                });
             
-        }
+            }else{
+               console.log(areas.msg);
+            }
+            //获取帖子
+            var postResult= await this.$postManager.GetHomePostManager();                                    
+   },methods:{
+         selectAreaSpan(value){
+             this.areas.forEach(item=>{
+                 if(item.name==value.name){
+                      item.isSelect=true;
+                      this.forums=item.forums;
+                 }else{
+                     item.isSelect=false;
+                 }
+             });
+             
+         }
    }
 }
 </script>
 <style>
-.el-header{
-     background-color: #e2e2e2;
+
+
+.el-breadcrumb__item{
+    font-weight: normal;
 }
-.header-left{
-    width: 70%;
-    float: left;
-    height: 60px;
-}
-.header-right{
-     width: 30%;
-     float: left;
-     height: 60px;
-}
-.header-right li{
-    line-height: 60px;
-    float: left;
-    padding-right: 20px;
-}
-.header-right a{
-    text-decoration: none;
-     color: #757575;
-}
-.home-main{
-    width:  70%;
-    margin:  0 auto;
-    height: 1000px;
-    background-color: red;
-}
+
 .home-main-view{
     width: 75%;
-    background-color: gray;
     height: 1000px;
     float: left;
+    font-family: 微软雅黑;
+    border-radius:5px;
+    border:1px solid;
+    background-color:white;
+    border-color: white;
 }
-.home-main-right{
-  width: 23%;
-  background-color: aquamarine;
-  height: 1000px;
-  float: right;; 
-}
-.home-main-right-user{
+.home-main-area{
     width: 100%;
-    height: 300px;
-    background-color: aqua
+    height: 30px;
 }
-.home-main-right-user li{
-    height: 70px;
-    margin-bottom: 5px;
-    background-color: blue;
+.home-main-area-span {
+     background-color: #f5f5f5;
+     border-radius: 3px;
+     line-height: 30px;
+     margin-right: 20px;
+     font-size: 15px;
+     cursor:pointer;
 }
-.home-main-right-user-avatar img{
-  width: 70px;
-  height: 70px;;
+.home-main-area-span-click{
+    background-color: #445;
+     border-radius: 3px;
+     line-height: 30px;
+     margin-right: 20px;
+     font-size: 15px;
+     cursor:pointer;
+     color: white;
 }
-.home-main-right-user-avatar span{
-   
-    width: 100px;
-    overflow:hidden;
-    text-overflow:ellipsis;
-    white-space:nowrap;
-    word-break:keep-all;
-    display:block;
-    line-height: 70px;
+.home-main-forum{
+     width: 100%;
+     height: 30px;
+     background-color: #e2e2e2;
+     margin-top: 10px;
+}
+.el-breadcrumb{
+     height: 30px;
+     line-height: 30px;
+}
+.el-breadcrumb span{
+    padding-left: 5px;
+}
+
+.home-mian-post-list{
+    width: 100%;
+    height: 1000px;
 }
 </style>

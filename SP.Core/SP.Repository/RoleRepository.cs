@@ -7,7 +7,7 @@ namespace SP.Repository
 {
    public class RoleRepository:BaseRepository<UserRole>
     {
-        public RoleRepository(SPDbcontext _dbcontext) : base(_dbcontext)
+        public RoleRepository(SPDbcontext _dbcontext,SqlMap sqlMap) : base(_dbcontext,sqlMap )
         {
 
         }

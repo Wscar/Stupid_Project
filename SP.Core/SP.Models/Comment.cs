@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace SP.Models
@@ -8,7 +9,8 @@ namespace SP.Models
     /// 评论表
     /// </summary>
   public  class Comment
-    {   
+    {
+        [Key]
         /// <summary>
         /// 评论Id
         /// </summary>
