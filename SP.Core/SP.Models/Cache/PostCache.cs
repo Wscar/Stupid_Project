@@ -28,5 +28,17 @@ namespace SP.Models.Cache
         ///  评论缓存
         /// </summary>
         public  List<CommentCache> Comments { get; set; }
+        public override bool Equals(object obj)
+        {
+            var post = obj as PostCache;
+            if (post.Subject == this.Subject && this.Context == post.Context)
+            {
+                return true;
+            }
+            else
+            {
+               return false;
+            }
+        }
     }
 }

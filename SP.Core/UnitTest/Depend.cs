@@ -39,6 +39,7 @@ namespace UnitTest
             services.AddScoped<IPostService, PostService>();
             services.AddScoped<IHomePageService, HomePageService>();
             services.AddSingleton<SqlMap>(x => { return new SqlMap(sqlConnStr); });
+            services.AddScoped<PostMongoDbRepository>();
             serviceProvider = services.BuildServiceProvider();
         }
     }

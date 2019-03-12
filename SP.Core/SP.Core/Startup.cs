@@ -58,7 +58,7 @@ namespace SP.Core
                     options.Authority = "http://localhost:5001";
                     options.SaveToken = true;
                     
-                })          
+                })         
                 ;
             services.AddAuthorization(options =>
             {
