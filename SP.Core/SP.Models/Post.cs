@@ -43,7 +43,7 @@ namespace SP.Models
         /// <summary>
         /// 是否删除(1,删除,0没有删除)
         /// </summary>
-        public  int IsDelete { get; set; }
+        public int IsDelete { get; set; } = 1;
         /// <summary>
         /// 内容
         /// </summary>

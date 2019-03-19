@@ -7,31 +7,40 @@ using Microsoft.Extensions.DependencyInjection;
 using FluentAssertions;
 using Xunit;
 using System.Threading.Tasks;
-
+using SP.Models;
+using SP.Models.Cache;
 namespace UnitTest
 {
-   public class PostServiceTest
+    public class PostServiceTest
     {
         private readonly Depend depend;
         private readonly IPostService postService;
+        private readonly ICacheService<PostCache> cacheService;
         public PostServiceTest()
         {
             depend = new Depend();
-           postService=  depend.serviceProvider.GetRequiredService<IPostService>();
+            postService = depend.serviceProvider.GetRequiredService<IPostService>();
+            cacheService = depend.serviceProvider.GetRequiredService<ICacheService<PostCache>>();
         }
 
         [Fact]
-        public  void  CreatePostTest()
+        public void CreatePostTest()
         {
             var postDto = new PostDto()
             {
                 ForumId = 3,
-                Subject = "C# 中attribute是个怎么用法",
-                Context = "如题",
-                CreateUserId = 1
+                Subject = "如何看待asp.net core3.0的发布",
+                Context = "如何看待.net core 3.0开始支持winfrom,wpf",
+                CreateUserId = 1,
+                CreateUserName = "夜莫白",
+                CreateUserNickname = "夜莫白",
+                CreateUserAvatar = "defaultAvatar",
             };
-            var  response=  postService?.CreatePost(postDto);
+            var response = postService?.CreatePost(postDto);
             response.Status.Should().Be(Status.Success);
+            var data = response.Data.Should().BeAssignableTo<Post>().Subject;
+            var postCache = cacheService.GetCache(new PostCache { Id = data.Id });
+            postCache.Subject.Should().Be(postDto.Subject);
         }
 
         [Fact]

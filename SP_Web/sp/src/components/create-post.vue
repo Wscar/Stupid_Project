@@ -118,7 +118,7 @@ export default {
                     }
                 }
                 var userId=this.$store.state.user.id;
-                var post={"forumId":forumId,"createUserId":userId,"subject":this.subject,"Context":this.postContext};
+                var post=this.BuildPostData(forumId,this.subject,this.postContext);
                var response=  await this.$postManager.CreatePostAsync(post);
                if(response.status==0){
                       //说明提交成功
@@ -126,6 +126,12 @@ export default {
             }       
         },Test(){
             alert("哈哈哈");
+        },BuildPostData(forumId,subject,context){
+            var postData={"ForumId":forumId,"CreateUserId":this.$store.user.id,
+                          "Subject":subject,"Context":context,"CreateUserName":this.$store.user.userName,
+                          "CreateUserNickname":this.$store.user.nickName,"CreateUserAvatar":this.$store.avatar};
+                        
+            return  postData;
         }
     }
     

@@ -18,7 +18,8 @@ using IdentityServer4;
 using SP.Core.Service;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-
+using SP.Models.Cache;
+using AutoMapper;
 namespace SP.Core
 {
     public class Startup
@@ -49,7 +50,7 @@ namespace SP.Core
             //         options.SupportedTokens = IdentityServer4.AccessTokenValidation.SupportedTokens.Both;
             //         options.RequireHttpsMetadata = false;
             //     });
-           
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
@@ -57,8 +58,8 @@ namespace SP.Core
                     options.Audience = "sp_api";
                     options.Authority = "http://localhost:5001";
                     options.SaveToken = true;
-                    
-                })         
+
+                }).AddCookie();      
                 ;
             services.AddAuthorization(options =>
             {
@@ -71,6 +72,7 @@ namespace SP.Core
             {
                 return new SpMongoDbContext(this.Configuration.GetConnectionString("MongoDb"), this.Configuration.GetConnectionString("MongoDbDatabaseName"));
             });
+            services.AddAutoMapper();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IImageService, ImagerService>();
             services.AddScoped<IBaseRepository<AppUser>, AppUserRepository>();
@@ -82,7 +84,9 @@ namespace SP.Core
             services.AddScoped<IAreaService, AreaService>();
             services.AddScoped<IBaseRepository<Post>, PostRepository>();
             services.AddScoped<IPostService, PostService>();
-            services.AddScoped<IHomePageService, HomePageService>();
+            services.AddScoped<IHomePageService, HomePageService>();         
+            services.AddScoped<PostMongoDbRepository>();
+            services.AddScoped<ICacheService<PostCache>, PostCacheService>();
             services.AddSingleton<SqlMap>(x => { return new SqlMap(Configuration.GetConnectionString("MySql") ); });
         }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -99,9 +103,11 @@ namespace SP.Core
             });
             app.UseAuthentication();
            // app.UseIdentityServer();
-            app.UseMvc();
-           
-           
+           app.UseMvc();
+        
+
+
+
         }
     }
 }

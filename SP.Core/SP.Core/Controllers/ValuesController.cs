@@ -4,6 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SP.Infrastructure;
+using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Authentication;
+
 namespace SP.Core.Controllers
 {
     [Route("api/[controller]")]
@@ -11,16 +14,19 @@ namespace SP.Core.Controllers
     public class ValuesController : ControllerBase
     {
         private readonly SqlMap sqlMap;
-        public ValuesController(SqlMap _sqlMap)
+        AuthenticationOptions Options;
+        public ValuesController(SqlMap _sqlMap, IOptions<AuthenticationOptions> _options)
         {
             sqlMap = _sqlMap;
+            Options = _options.Value;
         }
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
-        {
-            return null;
-
+        {    
+            
+            return new List<string>() { Options.SchemeMap.Count().ToString()};
+            
         }
 
         // GET api/values/5

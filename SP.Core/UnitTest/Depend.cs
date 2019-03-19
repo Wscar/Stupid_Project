@@ -7,6 +7,10 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
+
+using SP.Models.Cache;
+using AutoMapper;
+
 namespace UnitTest
 {
      public  class Depend
@@ -25,6 +29,8 @@ namespace UnitTest
             {
                 return new SpMongoDbContext("mongodb://localhost:27017","sp");
             });
+
+            services.AddAutoMapper();
             services.AddDbContext<SPDbcontext>(options => options.UseMySql(sqlConnStr));
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IImageService, ImagerService>();
@@ -38,8 +44,9 @@ namespace UnitTest
             services.AddScoped<IBaseRepository<Post>, PostRepository>();
             services.AddScoped<IPostService, PostService>();
             services.AddScoped<IHomePageService, HomePageService>();
-            services.AddSingleton<SqlMap>(x => { return new SqlMap(sqlConnStr); });
+            services.AddSingleton<SqlMap>(x => { return new SqlMap(sqlConnStr); });         
             services.AddScoped<PostMongoDbRepository>();
+            services.AddScoped<ICacheService<PostCache>, PostCacheService>();
             serviceProvider = services.BuildServiceProvider();
         }
     }

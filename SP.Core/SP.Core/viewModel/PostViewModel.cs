@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-
-namespace Sp.Service.Dtos
+using System.Linq;
+using System.Threading.Tasks;
+using AutoMapper;
+namespace SP.Core.viewModel
 {
-   public  class PostDto
-    {     
-
+    public class PostViewModel
+    {
         public int Id { get; set; }
-         /// <summary>
-         /// 板块id
-         /// </summary>
+        /// <summary>
+        /// 板块id
+        /// </summary>
         public int ForumId { get; set; }
 
         /// <summary>
@@ -37,13 +37,13 @@ namespace Sp.Service.Dtos
         /// <summary>
         /// 最后回复
         /// </summary>
-       public string EndReplyUserNickname { get; set; }
+        public string EndReplyUserNickname { get; set; }
 
 
         /// <summary>
         /// 最后回复人Id
         /// </summary>
-        public  int EndReplyUserId { get; set; }
+        public int EndReplyUserId { get; set; }
 
         /// <summary>
         /// 创建帖子用户的名称

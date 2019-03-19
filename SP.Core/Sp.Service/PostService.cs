@@ -5,14 +5,17 @@ using System.Threading.Tasks;
 using Sp.Service.Dtos;
 using SP.Models;
 using SP.Repository;
+using SP.Models.Cache;
 namespace Sp.Service
 {
     public class PostService : IPostService
     {
         private readonly IBaseRepository<Post> baseRepository;
-        public PostService(IBaseRepository<Post> _baseRepository)
+        private readonly  ICacheService<PostCache> postCacheService;
+        public PostService(IBaseRepository<Post> _baseRepository, ICacheService<PostCache> _postCacheService)
         {
             baseRepository = _baseRepository;
+            postCacheService = _postCacheService;
         }
         public ResponseDto CreatePost(PostDto dto)
         {
@@ -27,7 +30,9 @@ namespace Sp.Service
           var post=  baseRepository.Insert(newPost);
             if (post != null)
             {
-                return ResponseDto.Success(null);
+                dto.Id = post.Id;
+                this.postCacheService.AddCache(this.Mapping(dto));
+                return ResponseDto.Success(post);
             }
             else
             {
@@ -48,6 +53,7 @@ namespace Sp.Service
             var post = await baseRepository.InsertAsync(newPost);
             if (post != null)
             {
+                await this.postCacheService.AddCacheAsync(this.Mapping(dto));
                 return ResponseDto.Success(null);
             }
             else
@@ -156,6 +162,22 @@ namespace Sp.Service
         public Task<ResponseDto> UpdatePostAsync(PostDto dto)
         {
             throw new NotImplementedException();
+        }
+        private PostCache Mapping(PostDto postDto)
+        {
+            var postCache = new PostCache()
+            {
+                Id = postDto.Id,
+                Context = postDto.Context,
+                Subject = postDto.Subject,
+                CreateTime = DateTime.UtcNow,
+                ForumId=postDto.ForumId,
+                CreateUserAvatar=postDto.CreateUserAvatar,
+                CreateUserId=postDto.CreateUserId,
+                CreateUserName=postDto.CreateUserName,
+                CreateUserNickname=postDto.CreateUserNickname,             
+            };
+            return postCache;
         }
     }
 }
