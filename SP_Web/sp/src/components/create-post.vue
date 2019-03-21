@@ -61,15 +61,18 @@ export default {
         areaId:null,
         forumId:null,
         subject:null,
-        postContext:null
+        postContext:null,
+        redirect:null
         }
     },props:{
         fNode:String,
         node:String
-    }, async mounted(){
+    }, async mounted(){       
+        this.redirect=this.$route.params.redirect;  
+        console.log(this.redirect);
         if(this.node!=null){
             this.isShow=false;
-            alert(isShow);
+            alert(this.isShow);
         }else{
             this.isShow=true;
             if(this.$store.state.areas.length>0){    
@@ -104,7 +107,8 @@ export default {
                        this.forum=item;
                     }
                 });
-        },async commitPost(){          
+        },async commitPost(){      
+              
             if(this.subject==null||this.postContext==null){
                 alert("请输入主题或者内容")
                 return;
@@ -122,14 +126,15 @@ export default {
                var response=  await this.$postManager.CreatePostAsync(post);
                if(response.status==0){
                       //说明提交成功
+                      this.$router.push({path:this.redirect})
                }
             }       
         },Test(){
             alert("哈哈哈");
         },BuildPostData(forumId,subject,context){
-            var postData={"ForumId":forumId,"CreateUserId":this.$store.user.id,
-                          "Subject":subject,"Context":context,"CreateUserName":this.$store.user.userName,
-                          "CreateUserNickname":this.$store.user.nickName,"CreateUserAvatar":this.$store.avatar};
+            var postData={"ForumId":forumId,"CreateUserId":this.$store.state.user.id,
+                          "Subject":subject,"Context":context,"CreateUserName":this.$store.state.user.userName,
+                          "CreateUserNickname":this.$store.state.user.nickName,"CreateUserAvatar":this.$store.state.user.avatar};
                         
             return  postData;
         }

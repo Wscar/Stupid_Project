@@ -16,7 +16,7 @@
            </div>
            <div class="sp-forum-header-body">
               <div style="width :100%;height:25px;"></div>
-             <el-button type="primary">创建新主题</el-button>
+             <el-button type="primary" @click="To">创建新主题</el-button>
            </div>
         </div>
         <div class="sp-forum-body">
@@ -48,13 +48,18 @@ export default {
     data(){
         return{
             forum:{
-                name:null
+                name:null,
+                id:null
             }
         }
     },watch:{
-       
+
     },mounted() {
           this.forum.name=this.$route.params.name;
+    },methods:{
+          To(){
+              this.$router.push({name:"new",params:{forumName:this.forum.name,redirect:this.$router.currentRoute.fullPath}})
+          }      
     }
 }
 </script>

@@ -1,7 +1,7 @@
 <template>
     <ul class="sp-ul">
        <li  class="sp-li" v-for="item in title " :key="item.name" @click="go">
-        <router-link :to="{name:'sp-forum-info',params:{name:item.name}}">{{item.name}} </router-link>
+        <router-link :to="{name:'sp-forum-info',params:{name:item.name,id:item.id}}">{{item.name}} </router-link>
        </li>
     </ul>
 </template>

@@ -13,7 +13,7 @@ namespace Sp.Authentication.Service
 
             var task = Task.Run<bool>(() =>
             {
-                if (origin == "http://localhost:8080")
+                if (origin == "http://localhost:8081")
                 {
                     return true;
                 }

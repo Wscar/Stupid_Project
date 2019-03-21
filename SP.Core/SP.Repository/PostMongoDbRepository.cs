@@ -100,5 +100,20 @@ namespace SP.Repository
             var result =  this.Collection.Find(filter);
             return  result.FirstOrDefault();
         }
+        public async Task<List<PostCache>> GetPageAsync(int forumId, int pageIndex, int pageCount=20)
+        {
+            // 这些数据只作为展示用的，所以不需要评论内容
+            var newFilter = Builders<PostCache>.Filter.Eq(x => x.ForumId, forumId);
+            var sort = Builders<PostCache>.Sort.Descending(x => x.EndReplyTime);
+            var options = new FindOptions<PostCache>()
+            {
+                Sort = sort,
+                Limit = pageCount = 20,
+                Skip = (pageIndex - 1) * pageCount
+            };
+            var result=   await  this.Collection.FindAsync(newFilter, options);
+            return result.ToList();
+
+        }
     }
 }

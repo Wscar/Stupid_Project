@@ -65,7 +65,7 @@ namespace Sp.Authentication
             }
             app.UseCors(buider =>
             {
-                buider.WithOrigins("http://localhost:8080")
+                buider.WithOrigins("http://localhost:8081")
                 .AllowAnyHeader();
             });
             app.UseIdentityServer();

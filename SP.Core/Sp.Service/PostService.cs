@@ -48,11 +48,13 @@ namespace Sp.Service
                 CreateTime = DateTime.Now,
                 ForumId = dto.ForumId,
                 Subject = dto.Subject,
-                Context = dto.Context      
+                Context = dto.Context ,
+                
             };
             var post = await baseRepository.InsertAsync(newPost);
             if (post != null)
             {
+                dto.Id = post.Id;
                 await this.postCacheService.AddCacheAsync(this.Mapping(dto));
                 return ResponseDto.Success(null);
             }

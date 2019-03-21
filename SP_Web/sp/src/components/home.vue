@@ -39,7 +39,7 @@ export default {
                console.log(areas.msg);
             }
             //获取帖子
-            var postResult= await this.$postManager.GetHomePostManager();                                    
+           // var postResult= await this.$postManager.GetHomePostManager();                                    
    },methods:{
          selectAreaSpan(value){
              this.areas.forEach(item=>{
