@@ -56,5 +56,14 @@ namespace UnitTest
             var response = await postService?.CreatePostAsync(postDto);
             response.Status.Should().Be(Status.Success);
         }
+        [Fact]
+        public async Task GetPagePostAsyncTest()
+        {
+            var responseDto = await postService?.GetPagePostAsync(3, 1, 20);
+            
+            responseDto.Status.Should().Be(Status.Success);
+            var data = responseDto.Data.Should().BeAssignableTo<List<PostCache>>().Subject;
+            data.Count.Should().BeGreaterThan(0);
+        }
     }
 }

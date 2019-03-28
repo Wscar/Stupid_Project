@@ -18,12 +18,15 @@ namespace Sp.Service
         ResponseDto UpdatePost(PostDto dto);
         ResponseDto DeltePost(int postId);
         ResponseDto CreatePost(PostDto dto);
+        ResponseDto GetPostById(int id);
+        ResponseDto GetPagePost(int forumId, int pageIndex, int pageCount, bool isReturnCache= true);
         Task<ResponseDto> GetPostByFormIdAsync(int forumId);
         Task<ResponseDto> GetPostByFormUserIdAsync(int userId);
         Task<ResponseDto> GetPostByAreaIdAsync(int areaId);
         Task<ResponseDto> UpdatePostAsync(PostDto dto);
         Task<ResponseDto> DeltePostAsync(int postId);
         Task<ResponseDto> CreatePostAsync(PostDto dto);
-
+        Task<ResponseDto> GetPostByIdAsync(int id);
+        Task<ResponseDto> GetPagePostAsync(int forumId, int pageIndex, int pageCount ,bool isReturnCache=true);
     }
 }

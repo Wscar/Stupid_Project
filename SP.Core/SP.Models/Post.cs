@@ -62,10 +62,11 @@ namespace SP.Models
         [Column("end_reply_user_id")]     
         public int? EndReplyUserId { get; set; }
 
+         private DateTime _endReplyTime;
           /// <summary>
           /// 最后回复时间
           /// </summary>
          [Column("end_reply_time")]
-         public DateTime? EndReplyTime { get; set; }
+         public DateTime EndReplyTime { get{ return _endReplyTime; } set { _endReplyTime = value; } }
     }
 }

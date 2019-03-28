@@ -35,6 +35,16 @@ namespace Sp.Service
             throw new NotImplementedException();
         }
 
+        public List<PostCache> GetPageCache(object id, int pageIndex, int pageCount)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<PostCache>> GetPageCacheAsync(object id, int pageIndex, int pageCount)
+        {
+           return  this.dbRepository.GetPageAsync((int)id, pageIndex, pageCount);
+        }
+
         public void UpdateCache(PostCache value)
         {
             throw new NotImplementedException();

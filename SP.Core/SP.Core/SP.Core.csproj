@@ -22,4 +22,8 @@
     <ProjectReference Include="..\Sp.Service\Sp.Service.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Event\" />
+  </ItemGroup>
+
 </Project>

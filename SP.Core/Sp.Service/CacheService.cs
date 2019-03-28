@@ -14,5 +14,7 @@ namespace Sp.Service
         void UpdateCache(TCache value);
         Task<TCache> AddCacheAsync(TCache value);
         TCache AddCache(TCache value);
+        Task<List<TCache>> GetPageCacheAsync(object id, int pageIndex, int pageCount);
+        List<TCache> GetPageCache(object id,int pageIndex, int pageCount);
     }
 }

@@ -7,6 +7,8 @@ using System.Linq;
 using MongoDB.Driver;
 using System.Linq.Expressions;
 using SP.Models.Cache;
+using MongoDB.Bson;
+
 namespace SP.Repository
 {
    public class PostMongoDbRepository
@@ -16,22 +18,18 @@ namespace SP.Repository
         public PostMongoDbRepository(SpMongoDbContext _dbContext)
         {
             dbContext = _dbContext;
+            string collectionName = nameof(PostCache);
+            this.CheckOrCreateCollectionName(collectionName);
         }
         private IMongoCollection<PostCache> Collection;
         public async Task  AddAsync(PostCache entity)
-        {
-            string collectionName = nameof(PostCache);
-            await  CheckOrCreateCollectionNameAsync(collectionName);
+        {                
             //获取集合
-             Collection= dbContext.DataBase.GetCollection<PostCache>(collectionName);
+           
             await Collection.InsertOneAsync(entity);
         }
         public void Add(PostCache entity)
-        {
-            string collectionName = nameof(PostCache);
-             CheckOrCreateCollectionName(collectionName);
-            //获取集合
-            Collection = dbContext.DataBase.GetCollection<PostCache>(collectionName);
+        {       
              Collection.InsertOne(entity);
         }
         private  async Task CheckOrCreateCollectionNameAsync(string collectionName)
@@ -41,6 +39,12 @@ namespace SP.Repository
             if (!collectionNames.Contains(collectionName))
             {
                 await dbContext.DataBase.CreateCollectionAsync(collectionName);
+                this.Collection = dbContext.DataBase.GetCollection<PostCache>(collectionName);
+
+            }
+            else
+            {
+                this.Collection = dbContext.DataBase.GetCollection<PostCache>(collectionName);
             }                                        
         }
         private void CheckOrCreateCollectionName(string collectionName)
@@ -50,6 +54,11 @@ namespace SP.Repository
             if (!collectionNames.Contains(collectionName))
             {
                 dbContext.DataBase.CreateCollection(collectionName);
+                this.Collection = dbContext.DataBase.GetCollection<PostCache>(collectionName);
+            }
+            else
+            {
+                this.Collection = dbContext.DataBase.GetCollection<PostCache>(collectionName);
             }
         }
         public async Task UpdateAsync(PostCache entity)
@@ -102,18 +111,36 @@ namespace SP.Repository
         }
         public async Task<List<PostCache>> GetPageAsync(int forumId, int pageIndex, int pageCount=20)
         {
-            // 这些数据只作为展示用的，所以不需要评论内容
-            var newFilter = Builders<PostCache>.Filter.Eq(x => x.ForumId, forumId);
-            var sort = Builders<PostCache>.Sort.Descending(x => x.EndReplyTime);
-            var options = new FindOptions<PostCache>()
-            {
-                Sort = sort,
-                Limit = pageCount = 20,
-                Skip = (pageIndex - 1) * pageCount
-            };
-            var result=   await  this.Collection.FindAsync(newFilter, options);
-            return result.ToList();
+            var findFilter = Builders<PostCache>.Filter.Eq(x => x.ForumId, forumId);
 
+            var options = new FindOptions<PostCache>
+            {
+                Sort = Builders<PostCache>.Sort.Descending(x => x.EndReplyTime),
+                Limit = pageCount,
+                Skip = pageIndex - 1
+            };
+           var result=  await this.Collection.FindAsync(findFilter, options);
+            return result.ToList();
+        }
+        private IEnumerable<PostCache> GetGreaterThenEndReplyTime(List<PostCache> postCaches, DateTime endReplyTime)
+        {
+             for(var i=0; i < postCaches.Count; i++)
+            {
+                if (DateTime.Compare(postCaches[i].CreateTime, endReplyTime)>0)
+                {
+                    yield return postCaches[i];
+                }
+            }
+        }
+        private void UpdateFild()
+        {         
+            var findFilter = Builders<PostCache>.Filter.Gt(x => x.Id, -1);
+         
+          
+
+
+
+           
         }
     }
 }

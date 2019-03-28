@@ -80,7 +80,7 @@ namespace SP.Repository
         {
            
             var id = this.FindImage(fileName);
-            var imageBytes = dbContext.Bucket.DownloadAsBytesAsync(id);
+            var imageBytes = dbContext.Bucket.DownloadAsBytesAsync(id);         
             return imageBytes;
         }
 

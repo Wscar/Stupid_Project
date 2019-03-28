@@ -32,7 +32,7 @@ namespace SP.Core
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services )
         {
             //services.AddIdentityServer()
             //     .AddDeveloperSigningCredential()
@@ -90,7 +90,7 @@ namespace SP.Core
             services.AddSingleton<SqlMap>(x => { return new SqlMap(Configuration.GetConnectionString("MySql") ); });
         }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IApplicationLifetime lifetime)
         {
             if (env.IsDevelopment())
             {
@@ -104,7 +104,7 @@ namespace SP.Core
             app.UseAuthentication();
            // app.UseIdentityServer();
            app.UseMvc();
-        
+            
 
 
 

@@ -41,20 +41,27 @@ namespace Sp.Service
         }
 
         public async Task<ResponseDto> CreatePostAsync(PostDto dto)
-        {
+        {    
+              //这里可能需要重构
             var newPost = new Post
             {
                 CreateUserId = dto.CreateUserId,
                 CreateTime = DateTime.Now,
                 ForumId = dto.ForumId,
                 Subject = dto.Subject,
-                Context = dto.Context ,
+                Context = dto.Context,
+                EndReplyTime = DateTime.Now,
+                EndReplyUserId=dto.CreateUserId,              
                 
             };
             var post = await baseRepository.InsertAsync(newPost);
             if (post != null)
             {
+
                 dto.Id = post.Id;
+                dto.EndReplyUserId = post.CreateUserId;               
+                dto.EndReplyTime = post.EndReplyTime;
+                dto.EndReplyUserNickname = dto.CreateUserNickname;               
                 await this.postCacheService.AddCacheAsync(this.Mapping(dto));
                 return ResponseDto.Success(null);
             }
@@ -90,6 +97,36 @@ namespace Sp.Service
             {
                 return ResponseDto.Fail("找不到当前的帖子");
             }
+        }
+        public ResponseDto GetPagePost(int forumId, int pageIndex, int pageCount, bool isReturnCache = true)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<ResponseDto> GetPagePostAsync(int forumId, int pageIndex, int pageCount, bool isReturnCache = true)
+        {
+            try
+            {
+                if (isReturnCache)
+                {
+                    var cachesResult = await this.postCacheService.GetPageCacheAsync(forumId, pageIndex, pageCount);
+                    return ResponseDto.Success(cachesResult);
+                }
+                else
+                {
+                     //采用视图的方式进行查询
+                }
+                return ResponseDto.Fail("查询帖子错误");
+            }
+            catch(Exception ex)
+            {
+                return ResponseDto.Fail(ex.Message);
+            }
+            finally
+            {
+              
+            }
+            
         }
 
         public ResponseDto GetPostByAreaId(int areaId)
@@ -156,6 +193,15 @@ namespace Sp.Service
             }
         }
 
+        public ResponseDto GetPostById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<ResponseDto> GetPostByIdAsync(int id)
+        {
+            throw new NotImplementedException();
+        }       
         public ResponseDto UpdatePost(PostDto dto)
         {
             throw new NotImplementedException();
@@ -177,8 +223,12 @@ namespace Sp.Service
                 CreateUserAvatar=postDto.CreateUserAvatar,
                 CreateUserId=postDto.CreateUserId,
                 CreateUserName=postDto.CreateUserName,
-                CreateUserNickname=postDto.CreateUserNickname,             
-            };
+                CreateUserNickname=postDto.CreateUserNickname, 
+                EndReplyTime=postDto.EndReplyTime,
+                EndReplyUserId=postDto.EndReplyUserId,
+                EndReplyUserNickname=postDto.EndReplyUserNickname,              
+                
+            };           
             return postCache;
         }
     }

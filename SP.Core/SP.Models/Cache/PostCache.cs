@@ -8,7 +8,8 @@ namespace SP.Models.Cache
     /// 帖子缓存,任何读取帖子操作都要从缓存里面取
     /// </summary>
     public class PostCache : Post
-    {
+    {   
+       
         /// <summary>
         /// 创建帖子用户的名称
         /// </summary>
@@ -23,7 +24,8 @@ namespace SP.Models.Cache
         /// 用户头像
         /// </summary>
         public string CreateUserAvatar { get; set; }
-       
+        public string EndReplyUserUserName { get; set; }
+        public string EndReplyUserNickname { get; set; }
         /// <summary>
         ///  评论缓存
         /// </summary>
