@@ -6,16 +6,19 @@ using Sp.Service.Dtos;
 using SP.Models;
 using SP.Repository;
 using SP.Models.Cache;
+
 namespace Sp.Service
 {
     public class PostService : IPostService
     {
         private readonly IBaseRepository<Post> baseRepository;
         private readonly  ICacheService<PostCache> postCacheService;
-        public PostService(IBaseRepository<Post> _baseRepository, ICacheService<PostCache> _postCacheService)
+        private readonly IImageRepository imageRepository;
+        public PostService(IBaseRepository<Post> _baseRepository, ICacheService<PostCache> _postCacheService, IImageRepository _imageRepository)
         {
             baseRepository = _baseRepository;
             postCacheService = _postCacheService;
+            imageRepository = _imageRepository;
         }
         public ResponseDto CreatePost(PostDto dto)
         {
@@ -39,10 +42,8 @@ namespace Sp.Service
                 return ResponseDto.Fail("创建失败");
             }
         }
-
         public async Task<ResponseDto> CreatePostAsync(PostDto dto)
-        {    
-              //这里可能需要重构
+        {                
             var newPost = new Post
             {
                 CreateUserId = dto.CreateUserId,
@@ -57,11 +58,12 @@ namespace Sp.Service
             var post = await baseRepository.InsertAsync(newPost);
             if (post != null)
             {
-
+                var userAvatartStream = await imageRepository.DownLoadImageAsync(dto.CreateUserAvatar);
                 dto.Id = post.Id;
                 dto.EndReplyUserId = post.CreateUserId;               
                 dto.EndReplyTime = post.EndReplyTime;
-                dto.EndReplyUserNickname = dto.CreateUserNickname;               
+                dto.EndReplyUserNickname = dto.CreateUserNickname;
+                dto.CreateUserAvatarStream = userAvatartStream;
                 await this.postCacheService.AddCacheAsync(this.Mapping(dto));
                 return ResponseDto.Success(null);
             }
@@ -227,7 +229,7 @@ namespace Sp.Service
                 EndReplyTime=postDto.EndReplyTime,
                 EndReplyUserId=postDto.EndReplyUserId,
                 EndReplyUserNickname=postDto.EndReplyUserNickname,              
-                
+                CreateUerAvatarStream=postDto.CreateUserAvatarStream
             };           
             return postCache;
         }

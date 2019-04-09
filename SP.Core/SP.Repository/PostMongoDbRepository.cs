@@ -24,8 +24,7 @@ namespace SP.Repository
         private IMongoCollection<PostCache> Collection;
         public async Task  AddAsync(PostCache entity)
         {                
-            //获取集合
-           
+                   
             await Collection.InsertOneAsync(entity);
         }
         public void Add(PostCache entity)

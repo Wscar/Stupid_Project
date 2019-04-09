@@ -13,4 +13,8 @@
     <ProjectReference Include="..\SP.Models\SP.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="CacheRepository\" />
+  </ItemGroup>
+
 </Project>

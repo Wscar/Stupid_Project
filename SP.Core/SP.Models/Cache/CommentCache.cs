@@ -18,5 +18,7 @@ namespace SP.Models.Cache
         public string CommentUserNickname { get; set; }
 
         public string CommentUserAvatar { get; set; }
+        public string CommentUserAvatarStream { get; set; }
+
     }
 }

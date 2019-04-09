@@ -59,5 +59,7 @@ namespace Sp.Service.Dtos
         /// 用户头像
         /// </summary>
         public string CreateUserAvatar { get; set; }
+
+        public byte[] CreateUserAvatarStream { get; set; }
     }
 }

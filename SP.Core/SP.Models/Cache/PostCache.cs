@@ -27,6 +27,10 @@ namespace SP.Models.Cache
         public string EndReplyUserUserName { get; set; }
         public string EndReplyUserNickname { get; set; }
         /// <summary>
+        /// 用户头像流
+        /// </summary>
+        public byte[] CreateUerAvatarStream { get; set; }
+        /// <summary>
         ///  评论缓存
         /// </summary>
         public  List<CommentCache> Comments { get; set; }
