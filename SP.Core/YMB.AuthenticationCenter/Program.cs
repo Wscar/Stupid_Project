@@ -19,6 +19,8 @@ namespace YMB.AuthenticationCenter
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
+                 .UseUrls("https://*:5000")
+                .UseStartup<Startup>()
+                ;
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
@@ -25,7 +26,17 @@ namespace YMB.AuthenticationCenter
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddIdentityServer().AddInMemoryClients(Config.GetClients())
+                .AddInMemoryApiResources(Config.GetApiResources())
+                .AddInMemoryIdentityResources(Config.GetIdentityResources())
+                .AddTestUsers(Config.Users())
+                .AddDeveloperSigningCredential();
+
+            services.AddAuthentication();
+                
+                
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,7 +53,11 @@ namespace YMB.AuthenticationCenter
             }
 
             app.UseHttpsRedirection();
+            app.UseIdentityServer();
+           
             app.UseMvc();
+           
+            
         }
     }
 }
