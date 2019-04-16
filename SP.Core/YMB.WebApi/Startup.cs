@@ -33,14 +33,17 @@ namespace YMB.WebApi
             {
                 options.DefaultScheme = "Cookies";
                 options.DefaultChallengeScheme = "oidc";
+                
 
-            }).AddCookie("Cookies")
+            }).AddCookie()
             .AddOpenIdConnect("oidc", options =>
             {
                 options.Authority = "https://localhost:5000";
                 options.RequireHttpsMetadata = true;
                 options.ClientId = "mvc";
                 options.SaveTokens = true;
+               
+                
             });
 
         }
@@ -61,6 +64,11 @@ namespace YMB.WebApi
             
             app.UseHttpsRedirection();
             app.UseAuthentication();
+            //app.UseMvc(routes=> {
+            //    routes.MapRoute(name: "default",
+            //         template: "{controller=Home}/{action=Index}/{id?}"
+            //        );
+            //});
             app.UseMvc();
         }
     }

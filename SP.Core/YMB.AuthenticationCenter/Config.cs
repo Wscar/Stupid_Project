@@ -19,9 +19,9 @@ namespace YMB.AuthenticationCenter
                     ClientId="mvc",
                     ClientName="myMvc",
                     ClientSecrets=new List<Secret>{new Secret("secret".Sha256())},
-                    AllowedGrantTypes=GrantTypes.ResourceOwnerPasswordAndClientCredentials,
-                    RedirectUris={ "http://localhost:5002/signin-oidc" },
-                    PostLogoutRedirectUris = { "http://localhost:5002/signout-callback-oidc" },
+                    AllowedGrantTypes=GrantTypes.Implicit,
+                    RedirectUris={ "https://localhost:5002/signin-oidc" },
+                    PostLogoutRedirectUris = { "https://localhost:5002/signout-callback-oidc" },
 
                         AllowedScopes = new List<string>
                         {

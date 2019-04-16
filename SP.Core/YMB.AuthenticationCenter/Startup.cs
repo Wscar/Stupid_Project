@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Threading.Tasks;
+using IdentityServer4.Quickstart.UI;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -28,10 +29,12 @@ namespace YMB.AuthenticationCenter
         {
             //JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            services.AddIdentityServer().AddInMemoryClients(Config.GetClients())
+            services.AddIdentityServer(o=>
+            { 
+            }).AddInMemoryClients(Config.GetClients())
                 .AddInMemoryApiResources(Config.GetApiResources())
                 .AddInMemoryIdentityResources(Config.GetIdentityResources())
-                .AddTestUsers(Config.Users())
+                .AddTestUsers(TestUsers.Users)
                 .AddDeveloperSigningCredential();
 
             services.AddAuthentication();
@@ -54,8 +57,8 @@ namespace YMB.AuthenticationCenter
 
             app.UseHttpsRedirection();
             app.UseIdentityServer();
-           
-            app.UseMvc();
+            app.UseStaticFiles();
+            app.UseMvcWithDefaultRoute();
            
             
         }
