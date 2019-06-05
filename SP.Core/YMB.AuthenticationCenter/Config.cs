@@ -28,7 +28,30 @@ namespace YMB.AuthenticationCenter
                             IdentityServerConstants.StandardScopes.OpenId,
                             IdentityServerConstants.StandardScopes.Profile
                         }
+                },
+                // vue客户端
+                new Client
+                {
+                    ClientId="vue-client",
+                    ClientName="vue客户端",
+                    ClientUri="http://localhost:4000",
+                    AllowedGrantTypes=GrantTypes.Implicit,
+                    AllowAccessTokensViaBrowser=true,
+                    RequireConsent=true,
+                    AccessTokenLifetime=60,
+                    //登陆和刷新token的地址
+                    RedirectUris={"http://localhost:4000/signin-oidc", "http://localhost:4000/redirect-silentrenew" },
+                    //退出地址
+                    PostLogoutRedirectUris={"http://localhost:4000" },
+                    //跨域 
+                    AllowedCorsOrigins={"http://localhost:4000" },
+                    AllowedScopes=  new List<string>
+                        {   "api1",
+                            IdentityServerConstants.StandardScopes.OpenId,
+                            IdentityServerConstants.StandardScopes.Profile
+                        }
                 }
+
             };
         }
 

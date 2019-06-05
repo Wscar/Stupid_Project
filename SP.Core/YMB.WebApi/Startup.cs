@@ -42,7 +42,10 @@ namespace YMB.WebApi
                 options.RequireHttpsMetadata = true;
                 options.ClientId = "mvc";
                 options.SaveTokens = true;
-               
+                //多久验证一次token ，5分支验证一次
+                options.TokenValidationParameters.ClockSkew = TimeSpan.FromSeconds(5);
+                //验证token的有效时间
+                options.TokenValidationParameters.RequireExpirationTime = true;
                 
             });
 

@@ -1,0 +1,76 @@
+{
+  "format": 1,
+  "restore": {
+    "F:\\MyProject\\Stupid_Project\\SP.Core\\YMB.MVC.Client\\YMB.MVC.Client.csproj": {}
+  },
+  "projects": {
+    "F:\\MyProject\\Stupid_Project\\SP.Core\\YMB.MVC.Client\\YMB.MVC.Client.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "F:\\MyProject\\Stupid_Project\\SP.Core\\YMB.MVC.Client\\YMB.MVC.Client.csproj",
+        "projectName": "YMB.MVC.Client",
+        "projectPath": "F:\\MyProject\\Stupid_Project\\SP.Core\\YMB.MVC.Client\\YMB.MVC.Client.csproj",
+        "packagesPath": "C:\\Users\\夜莫白\\.nuget\\packages\\",
+        "outputPath": "F:\\MyProject\\Stupid_Project\\SP.Core\\YMB.MVC.Client\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\夜莫白\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.2"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "http://192.168.1.197:8082/repository/nuget-hosted/": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.2": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.2": {
+          "dependencies": {
+            "IdentityModel": {
+              "target": "Package",
+              "version": "[3.10.10, )"
+            },
+            "Microsoft.AspNetCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.0, )",
+              "autoReferenced": true
+            },
+            "Microsoft.AspNetCore.Razor.Design": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.0, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
+        }
+      }
+    }
+  }
+}
